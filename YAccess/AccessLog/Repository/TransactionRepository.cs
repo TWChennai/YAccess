@@ -1,5 +1,6 @@
-﻿using System.Data;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 
 using AccessLog.Domain;
 
@@ -12,10 +13,11 @@ namespace AccessLog.Repository
         private const string TransactionQuery = "select CID as ControllerId, "
                                                 + "GtNo as GateNumber, "
                                                 + "EmpID as EmployeeId, "
-                                                + "CardID as CardId, " 
-                                                + "Dt as CreatedAt, " 
+                                                + "empName as EmployeeName, "
+                                                + "CardID as CardId, "
+                                                + "Dt as CreatedAt, "
                                                 + "updatedon as UpdatedAt "
-                                                + "from Trans where GtNo = @GateNumber";
+                                                + "from Trans where updatedon <= @when";
 
         private readonly IDbConnection connection;
 
@@ -24,9 +26,9 @@ namespace AccessLog.Repository
             this.connection = connection;
         }
 
-        public Transaction GetLastTransaction(string gateNumber)
+        public IEnumerable<Transaction> GetLastTransactions(DateTime when)
         {
-            return this.connection.Query<Transaction>(TransactionQuery, new { GateNumber = gateNumber }).FirstOrDefault();
+            return this.connection.Query<Transaction>(TransactionQuery, new { when });
         }
     }
 }

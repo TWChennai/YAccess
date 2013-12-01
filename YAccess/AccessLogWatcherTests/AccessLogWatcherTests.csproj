@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{57D32701-7543-4619-8D3B-6BF24AFD83E1}</ProjectGuid>
+    <ProjectGuid>{F73A5CE9-C271-4105-91F6-435E7081C03D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AccessLogTests</RootNamespace>
-    <AssemblyName>AccessLogTests</AssemblyName>
+    <RootNamespace>AccessLogWatcherTests</RootNamespace>
+    <AssemblyName>AccessLogWatcherTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -32,8 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper">
+    <Reference Include="Dapper, Version=1.12.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Dapper.1.13\lib\net40\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.1.1311.0615\lib\net40\Moq.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
@@ -47,12 +51,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repository\TransactionRepositoryTests.cs" />
+    <Compile Include="TransactionWatcherTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AccessLogWatcher\AccessLogWatcher.csproj">
+      <Project>{877edbd8-c0c8-4ee6-904f-fe597103edbb}</Project>
+      <Name>AccessLogWatcher</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AccessLog\AccessLog.csproj">
-      <Project>{8d6ec1f8-9948-4ede-8467-14168eb1678a}</Project>
+      <Project>{8D6EC1F8-9948-4EDE-8467-14168EB1678A}</Project>
       <Name>AccessLog</Name>
     </ProjectReference>
   </ItemGroup>

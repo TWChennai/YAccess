@@ -1,6 +1,7 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.OleDb;
-using System.Globalization;
+using System.Linq;
 
 using AccessLog.Repository;
 
@@ -17,7 +18,7 @@ namespace AccessLogTests.Repository
 
         public TransactionRepositoryTests()
         {
-            this.connection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=../../test.mdb;Jet OLEDB:Database Password=XsControl");
+            this.connection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=test.mdb;Jet OLEDB:Database Password=XsControl");
         }
 
         [SetUp]
@@ -29,15 +30,17 @@ namespace AccessLogTests.Repository
         [Test]
         public void ShouldBeAbleToGetLastTransactionForAGivenGate()
         {
-            var transaction = this.transactionRepository.GetLastTransaction("02");
+            var when = new DateTime(2013, 11, 29, 12, 00, 00);
+            var transactions = this.transactionRepository.GetLastTransactions(when).ToList();
 
-            Assert.NotNull(transaction);
-            Assert.That(transaction.ControllerId, Is.EqualTo("02"));
-            Assert.That(transaction.GateNumber, Is.EqualTo("02"));
-            Assert.That(transaction.CardId, Is.EqualTo("1"));
-            Assert.That(transaction.EmployeeId, Is.EqualTo("1"));
-            Assert.That(transaction.CreatedAt.ToString(CultureInfo.InvariantCulture), Is.EqualTo("11/29/2013 10:35:00"));
-            Assert.That(transaction.UpdatedAt.ToString(CultureInfo.InvariantCulture), Is.EqualTo("11/29/2013 10:35:00"));
+            Assert.IsNotEmpty(transactions);
+            Assert.That(transactions, Has.Count.EqualTo(3));
+
+            foreach (var hour in Enumerable.Range(0, 3))
+            {
+                Assert.That(transactions.Any(x => x.CreatedAt == when.AddHours(hour * -1)), Is.True, string.Format("{0}", when));
+                Assert.That(transactions.Any(x => x.UpdatedAt == when.AddHours(hour * -1)), Is.True, string.Format("{0}", when));
+            }
         }
 
         [TearDown]

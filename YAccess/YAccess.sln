@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessLogTests", "AccessLog
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{036A1070-FB47-4A2C-9E76-57228628B3CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessLogWatcher", "AccessLogWatcher\AccessLogWatcher.csproj", "{877EDBD8-C0C8-4EE6-904F-FE597103EDBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessLogWatcherTests", "AccessLogWatcherTests\AccessLogWatcherTests.csproj", "{F73A5CE9-C271-4105-91F6-435E7081C03D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,11 +25,20 @@ Global
 		{57D32701-7543-4619-8D3B-6BF24AFD83E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57D32701-7543-4619-8D3B-6BF24AFD83E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57D32701-7543-4619-8D3B-6BF24AFD83E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{877EDBD8-C0C8-4EE6-904F-FE597103EDBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{877EDBD8-C0C8-4EE6-904F-FE597103EDBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{877EDBD8-C0C8-4EE6-904F-FE597103EDBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{877EDBD8-C0C8-4EE6-904F-FE597103EDBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F73A5CE9-C271-4105-91F6-435E7081C03D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F73A5CE9-C271-4105-91F6-435E7081C03D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F73A5CE9-C271-4105-91F6-435E7081C03D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F73A5CE9-C271-4105-91F6-435E7081C03D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{57D32701-7543-4619-8D3B-6BF24AFD83E1} = {036A1070-FB47-4A2C-9E76-57228628B3CF}
+		{F73A5CE9-C271-4105-91F6-435E7081C03D} = {036A1070-FB47-4A2C-9E76-57228628B3CF}
 	EndGlobalSection
 EndGlobal

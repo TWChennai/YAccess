@@ -10,6 +10,8 @@ namespace AccessLog.Domain
 
         public string EmployeeId { get; set; }
 
+        public string EmployeeName { get; set; }
+
         public string CardId { get; set; }
 
         public DateTime CreatedAt { get; set; }
