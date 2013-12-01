@@ -4,7 +4,7 @@ using System.Linq;
 
 using AccessLog.Domain;
 
-namespace AccessLogWatcher
+namespace AccessLog
 {
     public class TransactionEventArgs : EventArgs
     {

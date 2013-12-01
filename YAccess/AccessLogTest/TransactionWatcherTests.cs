@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Data.OleDb;
 using System.IO;
 
+using AccessLog;
 using AccessLog.Domain;
 using AccessLog.Repository;
-
-using AccessLogWatcher;
 
 using Dapper;
 
@@ -14,7 +13,7 @@ using Moq;
 
 using NUnit.Framework;
 
-namespace AccessLogWatcherTests
+namespace AccessLogTests
 {
     [TestFixture]
     public class TransactionWatcherTests

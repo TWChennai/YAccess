@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 
 using AccessLog.Repository;
 
-namespace AccessLogWatcher
+namespace AccessLog
 {
     public class TransactionWatcher
     {
