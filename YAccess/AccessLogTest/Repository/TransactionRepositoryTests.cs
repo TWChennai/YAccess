@@ -35,12 +35,8 @@ namespace AccessLogTests.Repository
 
             Assert.IsNotEmpty(transactions);
             Assert.That(transactions, Has.Count.EqualTo(3));
-
-            foreach (var hour in Enumerable.Range(0, 3))
-            {
-                Assert.That(transactions.Any(x => x.CreatedAt == when.AddHours(hour * -1)), Is.True, string.Format("{0}", when));
-                Assert.That(transactions.Any(x => x.UpdatedAt == when.AddHours(hour * -1)), Is.True, string.Format("{0}", when));
-            }
+            Assert.That(transactions.All(transaction => transaction.CreatedAt <= when), Is.True);
+            Assert.That(transactions.All(transaction => transaction.UpdatedAt <= when), Is.True);
         }
 
         [TearDown]
