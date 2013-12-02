@@ -29,11 +29,12 @@ namespace AccessLogTests
         [SetUp]
         public void SetUp()
         {
-            var path = Path.GetFullPath(".");
+            const string dbFile = @"test.mdb";
+            var path = Path.GetFullPath(string.Format(@".\{0}", dbFile));
             this.transactionRepositoryMock = new Mock<ITransactionRepository>();
             this.transactionWatcher = new TransactionWatcher(path, this.transactionRepositoryMock.Object);
             this.transactionWatcher.OnNewTransactions += this.OnNewTransactions;
-            this.connection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=test.mdb;Jet OLEDB:Database Password=XsControl");
+            this.connection = new OleDbConnection(string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Jet OLEDB:Database Password=XsControl", dbFile));
         }
 
         [Test]

@@ -1,5 +1,8 @@
-﻿using System.Data.OleDb;
-
+﻿using System;
+using System.Configuration;
+using System.Data.OleDb;
+using System.IO;
+using System.Runtime.Remoting.Channels;
 using AccessLog;
 using AccessLog.Repository;
 
@@ -20,15 +23,19 @@ namespace YAccess
 
         private readonly TransactionRepository transactionRepository;
 
+        private readonly string dbFile;
+
         public Startup()
         {
-            this.connection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\test.mdb;Jet OLEDB:Database Password=XsControl");
+            this.dbFile = Path.GetFullPath(ConfigurationManager.AppSettings["DbFile"]);
+            var connectionString = string.Format(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Jet OLEDB:Database Password=XsControl", this.dbFile);
+            this.connection = new OleDbConnection(connectionString);
             this.transactionRepository = new TransactionRepository(this.connection);
         }
 
         public void Configuration(IAppBuilder app)
         {
-            var transactionWatcher = new TransactionWatcher(@"C:\", this.transactionRepository);
+            var transactionWatcher = new TransactionWatcher(this.dbFile, this.transactionRepository);
             GlobalHost.DependencyResolver.Register(typeof(ChatHub), () => new ChatHub(transactionWatcher));
 
             app.MapSignalR();

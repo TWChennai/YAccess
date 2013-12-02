@@ -14,8 +14,20 @@ namespace AccessLog
         public TransactionWatcher(string path, ITransactionRepository transactionRepository)
         {
             this.transactionRepository = transactionRepository;
-            this.accessFileWatcher = new FileSystemWatcher(path, "*.mdb") { EnableRaisingEvents = true };
-            this.accessFileWatcher.Changed += this.OnChanged;
+            this.accessFileWatcher = GetFileSystemWatcher(path);
+        }
+
+        private FileSystemWatcher GetFileSystemWatcher(string path)
+        {
+            var directoryName = Path.GetDirectoryName(path);
+            var fileName = Path.GetFileName(path);
+            
+            if (directoryName == null)
+                return null;
+
+            var fileSystemWatcher = new FileSystemWatcher(directoryName, fileName) {EnableRaisingEvents = true};
+            fileSystemWatcher.Changed += this.OnChanged;
+            return fileSystemWatcher;
         }
 
         public event NewTransactions OnNewTransactions;
