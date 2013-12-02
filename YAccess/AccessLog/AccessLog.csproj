@@ -47,6 +47,7 @@
     <Compile Include="Domain\Employee.cs" />
     <Compile Include="Domain\Gate.cs" />
     <Compile Include="Domain\Transaction.cs" />
+    <Compile Include="ITransactionWatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ITransactionRepository.cs" />
     <Compile Include="Repository\TransactionRepository.cs" />

@@ -5,7 +5,7 @@ using AccessLog.Repository;
 
 namespace AccessLog
 {
-    public class TransactionWatcher
+    public class TransactionWatcher : ITransactionWatcher
     {
         private readonly ITransactionRepository transactionRepository;
 
@@ -14,11 +14,9 @@ namespace AccessLog
         public TransactionWatcher(string path, ITransactionRepository transactionRepository)
         {
             this.transactionRepository = transactionRepository;
-            this.accessFileWatcher = new FileSystemWatcher(path, "*.*") { EnableRaisingEvents = true };
+            this.accessFileWatcher = new FileSystemWatcher(path, "*.mdb") { EnableRaisingEvents = true };
             this.accessFileWatcher.Changed += this.OnChanged;
         }
-
-        public delegate void NewTransactions(TransactionEventArgs transactionEventArgs);
 
         public event NewTransactions OnNewTransactions;
 

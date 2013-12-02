@@ -18,7 +18,7 @@ namespace AccessLogTests
     [TestFixture]
     public class TransactionWatcherTests
     {
-        private TransactionWatcher transactionWatcher;
+        private ITransactionWatcher transactionWatcher;
 
         private Mock<ITransactionRepository> transactionRepositoryMock;
 
