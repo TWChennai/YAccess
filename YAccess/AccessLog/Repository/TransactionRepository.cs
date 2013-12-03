@@ -17,7 +17,7 @@ namespace AccessLog.Repository
                                                 + "CardID as CardId, "
                                                 + "Dt as CreatedAt, "
                                                 + "updatedon as UpdatedAt "
-                                                + "from Trans where Dt <= @accessDateTime";
+                                                + "from Trans where Dt between @accessDateTimeStart and @accessDateTimeEnd";
 
         private readonly IDbConnection connection;
 
@@ -28,8 +28,9 @@ namespace AccessLog.Repository
 
         public IEnumerable<Transaction> GetLastTransactions(DateTime when)
         {
-            var accessDateTime = new DateTime(when.Year, when.Month, when.Day, when.Hour, when.Minute, when.Second);
-            return this.connection.Query<Transaction>(TransactionQuery, new { accessDateTime });
+            var accessDateTimeEnd = new DateTime(when.Year, when.Month, when.Day, when.Hour, when.Minute, when.Second);
+            var accessDateTimeStart = accessDateTimeEnd.AddMinutes(-2);
+            return this.connection.Query<Transaction>(TransactionQuery, new { accessDateTimeStart, accessDateTimeEnd });
         }
     }
 }

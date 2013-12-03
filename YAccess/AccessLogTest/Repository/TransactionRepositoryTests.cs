@@ -30,13 +30,14 @@ namespace AccessLogTests.Repository
         [Test]
         public void ShouldBeAbleToGetLastTransactionForAGivenGate()
         {
-            var when = new DateTime(2013, 11, 29, 12, 00, 00);
+            var when = new DateTime(2013, 11, 29, 10, 00, 00);
+            var whenStart = new DateTime(2013, 11, 29, 9, 58, 00);
             var transactions = this.transactionRepository.GetLastTransactions(when).ToList();
 
             Assert.IsNotEmpty(transactions);
-            Assert.That(transactions, Has.Count.EqualTo(3));
+            Assert.That(transactions, Has.Count.EqualTo(2));
             Assert.That(transactions.All(transaction => transaction.CreatedAt <= when), Is.True);
-            Assert.That(transactions.All(transaction => transaction.UpdatedAt <= when), Is.True);
+            Assert.That(transactions.All(transaction => transaction.CreatedAt >= whenStart), Is.True);
         }
 
         [TearDown]

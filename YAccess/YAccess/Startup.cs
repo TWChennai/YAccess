@@ -1,8 +1,6 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data.OleDb;
 using System.IO;
-using System.Runtime.Remoting.Channels;
 using AccessLog;
 using AccessLog.Repository;
 
@@ -37,7 +35,7 @@ namespace YAccess
         public void Configuration(IAppBuilder app)
         {
             var transactionWatcher = new TransactionWatcher(this.dbFile, this.transactionRepository);
-            GlobalHost.DependencyResolver.Register(typeof(ChatHub), () => new ChatHub(transactionWatcher));
+            GlobalHost.DependencyResolver.Register(typeof(AccessHub), () => new AccessHub(transactionWatcher));
 
             app.MapSignalR();
         }
