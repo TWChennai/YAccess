@@ -28,7 +28,8 @@ namespace YAccess
         public Startup()
         {
             this.dbFile = Path.GetFullPath(ConfigurationManager.AppSettings["DbFile"]);
-            var connectionString = string.Format(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Jet OLEDB:Database Password=XsControl", this.dbFile);
+
+            var connectionString = string.Format(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Jet OLEDB:Database Password=XsControl", this.dbFile);
             this.connection = new OleDbConnection(connectionString);
             this.transactionRepository = new TransactionRepository(this.connection);
         }
