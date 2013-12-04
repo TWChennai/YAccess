@@ -1,21 +1,25 @@
-﻿using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AccessLog;
-using AccessLog.Domain;
 using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Infrastructure;
 
 namespace YAccess
 {
     public class AccessHub : Hub
     {
-        private readonly ITransactionWatcher transactionWatcher;
+        private static ITransactionWatcher TransactionWatcher;
+
+        private readonly static object LockObject = new object();
 
         public AccessHub(ITransactionWatcher transactionWatcher)
         {
-            this.transactionWatcher = transactionWatcher;
-            this.transactionWatcher.OnNewTransactions += this.OnNewTransactions;
+            lock (LockObject)
+            {
+                if (TransactionWatcher == null)
+                {
+                    TransactionWatcher = transactionWatcher;
+                    TransactionWatcher.OnNewTransactions += this.OnNewTransactions;
+                }
+            }
         }
 
         public Task JoinGroup(string groupName)
